@@ -3,19 +3,22 @@ import networkx as nx
 import my_networkx as my_nx
 import main
 
-graph = [[0, -5, 2, 3],
-        [0, 0, 4, 0],
-        [0, 0, 0, 1],
-        [0, 0, 0, 0]]
+graph = {
+    'A': {'B': -2, 'C': 4},
+    'B': {'C': 1, 'D': 2},
+    'C': {},
+    'D': {'B': -1}
+}
 
-f_graph = main.JohnsonAlgorithm(graph)
+f_graph = main.johnson(graph)
 G = nx.DiGraph()
 
 edge_list = []
-for i in range(len(graph)):
-    for j in range(len(graph)):
-        edge_list.append((i, j, {'w': f'{f_graph[i][j]}'}))     
-       
+
+for key, value in f_graph.items():
+    for k, w in value.items():
+        edge_list.append((key, k, {'w':f'{w}'}))
+
 
 #edge_list = [(1,2,{'w':'5'}),(2,1,{'w':'-3'}),(2,3,{'w':'0'}),(3,1,{'w':'2'}),
 #             (3,4,{'w':'3'}),(4,3,{'w':'-1'}),(1,5,{'w':'-7'}),(5,1,{'w':'-2'}),
